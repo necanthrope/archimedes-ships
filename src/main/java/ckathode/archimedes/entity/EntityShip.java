@@ -444,9 +444,15 @@ public class EntityShip extends EntityBoat implements IEntityAdditionalSpawnData
 			float mass = capabilities.getMass();
 			motionY += buoyancyforce / mass;
 		}
-		if (!isFlying())
-		{
-			motionY -= gravity;
+		if(ArchimedesShipMod.instance.modConfig.enableAirShipFalling) {
+			if (!isFlying()) {
+				motionY -= gravity;
+			}
+		}
+		else {
+			if (!capabilities.canFly()) {
+				motionY -= gravity;
+			}
 		}
 		capabilities.updateEngines();
 		//END outer forces
